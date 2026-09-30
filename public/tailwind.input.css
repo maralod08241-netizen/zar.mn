@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@source "../views";
+
+@theme {
+  --color-zar-green: #17634d;
+  --color-zar-lime: #d9e76a;
+  --color-zar-coral: #bd573b;
+}

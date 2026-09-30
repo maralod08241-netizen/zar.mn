@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+
+<section class="page-heading">
+  <p class="eyebrow">ШИНЭ НИЙТЛЭЛ</p>
+  <h1>Зараа байршуул</h1>
+  <p>Мэдээллээ бөглөөд, хүсвэл VIP багцаа сонгоорой.</p>
+</section>
+<form class="form post-form" method="post" action="/post" enctype="multipart/form-data">
+  <label>Ангилал<select name="category" required>
+    <% categories.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %>
+  </select></label>
+  <label>Зарын гарчиг<input name="title" placeholder="Жишээ нь, цэвэрхэн хэрэглэсэн дугуй" maxlength="200" required></label>
+  <label>Тайлбар<textarea name="description" placeholder="Зарын дэлгэрэнгүй мэдээлэл" rows="5"></textarea></label>
+  <div class="form-row">
+    <label>Үнэ (₮)<input type="number" name="price" placeholder="0" min="0"></label>
+    <label>Байршил<input name="location" placeholder="Улаанбаатар, Сүхбаатар дүүрэг"></label>
+  </div>
+  <label>Зураг<input class="file-input" type="file" name="image" accept="image/jpeg,image/png,image/webp"></label>
+  <div class="vip-selector">
+    <div><p class="eyebrow vip-eyebrow">ИЛҮҮ ТОД ХАРАГДАХ</p><h2><span class="icon icon--sparkles" aria-hidden="true"></span>VIP багц</h2><p>Тооцоолсон дүнг шууд харуулна.</p></div>
+    <label>Хугацаа<select id="vipDays" name="vipDays">
+      <option value="" data-price="0">Энгийн зар · 0 ₮</option>
+      <% vipPlans.forEach(plan => { %>
+        <option value="<%= plan.days %>" data-price="<%= plan.price %>"><%= plan.days %> хоног · <%= plan.price.toLocaleString('mn-MN') %> ₮</option>
+      <% }) %>
+    </select></label>
+    <p class="vip-total">Тооцоолсон дүн <strong id="vipPrice">0 ₮</strong></p>
+    <p class="payment-note">Жишиг үнэ: 7 хоног 5,000 ₮, 14 хоног 9,000 ₮, 30 хоног 18,000 ₮. Одоогоор бодит төлбөрийн үйлчилгээ холбогдоогүй.</p>
+  </div>
+  <button class="submit-button motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98] motion-safe:hover:shadow-sm" type="submit">Зар нийтлэх <span class="icon icon--arrow-right" aria-hidden="true"></span></button>
+</form>
+
+<script>
+  const vipDays = document.querySelector('#vipDays');
+  const vipPrice = document.querySelector('#vipPrice');
+  vipDays.addEventListener('change', () => {
+    const price = Number(vipDays.selectedOptions[0].dataset.price || 0);
+    vipPrice.textContent = `${price.toLocaleString('mn-MN')} ₮`;
+  });
+</script>
+
+<%- include('partials/footer') %>

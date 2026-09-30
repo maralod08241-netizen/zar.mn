@@ -1,0 +1,20 @@
+<%- include('partials/header') %>
+
+<section class="auth-layout">
+  <div class="auth-heading">
+    <p class="eyebrow">ТАВТАЙ МОРИЛ</p>
+    <h1>Нэвтрэх</h1>
+    <p>Зарууд болон гишүүний буландаа үргэлжлүүлэн орно уу.</p>
+  </div>
+  <div class="auth-panel">
+    <% if (error) { %><p class="error auth-error" role="alert"><%= error %></p><% } %>
+    <form class="form auth-form" method="post">
+      <label for="login-phone">Утасны дугаар<input id="login-phone" name="phone" type="tel" autocomplete="tel" placeholder="Утас"></label>
+      <label for="login-password">Нууц үг<input id="login-password" type="password" name="password" autocomplete="current-password" placeholder="Нууц үг"></label>
+      <button class="motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98] motion-safe:hover:shadow-sm">Нэвтрэх <span class="icon icon--arrow-right" aria-hidden="true"></span></button>
+    </form>
+    <p class="auth-switch">Шинэ гишүүн үү? <a href="/register">Бүртгүүлэх</a></p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

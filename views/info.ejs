@@ -1,0 +1,50 @@
+<%- include('partials/header') %>
+
+<div class="info-page">
+  <nav class="breadcrumbs" aria-label="Хуудасны зам">
+    <a href="/"><span class="icon icon--house" aria-hidden="true"></span>Нүүр</a><span>/</span><span><%= page.title %></span>
+  </nav>
+
+  <section class="info-heading">
+    <p class="eyebrow">ЗАР.МН · МЭДЭЭЛЭЛ</p>
+    <h1><%= page.title %></h1>
+    <p class="info-intro"><%= page.intro %></p>
+  </section>
+
+  <% if (page.sections) { %>
+    <div class="info-grid">
+      <% page.sections.forEach((section, index) => { %>
+        <article class="info-section">
+          <span class="info-index"><%= String(index + 1).padStart(2, '0') %></span>
+          <h2><%= section.title %></h2>
+          <p><%= section.text %></p>
+        </article>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <% if (page.faqs) { %>
+    <section class="info-faqs" aria-label="Түгээмэл асуултууд">
+      <% page.faqs.forEach(faq => { %>
+        <details>
+          <summary><%= faq.question %></summary>
+          <p><%= faq.answer %></p>
+        </details>
+      <% }) %>
+    </section>
+  <% } %>
+
+  <% if (page.empty) { %>
+    <div class="empty-state info-empty">
+      <h2>Одоогоор шинэ мэдээлэл алга</h2>
+      <p>Шинэ мэдээлэл нийтлэгдэхэд энэ хэсэгт харагдана.</p>
+    </div>
+  <% } %>
+
+  <div class="info-cta">
+    <p>Зар хайж эхлэх үү?</p>
+    <a class="button-link" href="/"><span class="icon icon--arrow-right" aria-hidden="true"></span>Зарууд үзэх</a>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

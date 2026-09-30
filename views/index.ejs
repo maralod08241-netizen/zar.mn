@@ -1,0 +1,73 @@
+<%- include('partials/header') %>
+
+<section class="home-intro">
+  <div>
+    <p class="eyebrow">ЗАР.MN · ЗАРЫН НЭГДСЭН САН</p>
+    <h1>Хайснаа ол.<br><span>Зарах зүйлээ байршуул.</span></h1>
+  </div>
+  <a class="button-link motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98] motion-safe:hover:shadow-sm" href="<%= user ? '/post' : '/register' %>"><span class="icon icon--circle-plus" aria-hidden="true"></span>Зар оруулах</a>
+</section>
+
+<form class="search" action="/" method="get">
+  <label class="search-input"><span>Хайх</span><input name="q" placeholder="Жишээ нь, iPhone 15" value="<%= q %>"></label>
+  <label class="search-category"><span>Ангилал</span><select name="cat">
+    <option value="">Бүх ангилал</option>
+    <% categories.forEach(c => { %>
+      <option value="<%= c %>" <%= cat === c ? 'selected' : '' %>><%= c %></option>
+    <% }) %>
+  </select></label>
+  <button class="motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98] motion-safe:hover:shadow-sm" type="submit"><span class="icon icon--search" aria-hidden="true"></span>Хайх</button>
+</form>
+
+<% if (vipAds.length) { %>
+  <section class="feed-section">
+    <div class="section-heading">
+      <div><p class="eyebrow vip-eyebrow">ОНЦЛОХ ЗАР</p><h2><span class="icon icon--sparkles" aria-hidden="true"></span>VIP зарууд</h2></div>
+      <span class="section-note">Илүү түрүүнд харагдана</span>
+    </div>
+    <div class="listing-grid vip-grid">
+      <% vipAds.forEach(ad => { %>
+        <a class="listing-card vip-card" href="/ad/<%= ad._id %>">
+          <div class="listing-image">
+            <% if (ad.image) { %><img src="<%= ad.image.startsWith('https://') ? ad.image : '/uploads/' + ad.image %>" alt="<%= ad.title %>" loading="lazy"><% } else { %><div class="image-placeholder"><span><%= ad.category %></span></div><% } %>
+            <span class="vip-badge"><span class="icon icon--sparkles" aria-hidden="true"></span>VIP</span>
+          </div>
+          <div class="listing-copy">
+            <span class="listing-category"><%= ad.category %></span>
+            <h3><%= ad.title %></h3>
+            <p class="listing-price"><%= ad.price.toLocaleString('mn-MN') %> ₮</p>
+            <div class="listing-meta"><span><span class="icon icon--map-pin" aria-hidden="true"></span><%= ad.location || 'Байршил тодорхойгүй' %></span><span><span class="icon icon--calendar-days" aria-hidden="true"></span><%= new Date(ad.createdAt).toLocaleDateString('mn-MN') %></span></div>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </section>
+<% } %>
+
+<section class="feed-section regular-section">
+  <div class="section-heading">
+    <div><p class="eyebrow">ШИНЭ НИЙТЛЭЛҮҮД</p><h2>Сүүлд нэмэгдсэн</h2></div>
+    <span class="section-note"><%= ads.length %> зар</span>
+  </div>
+  <% if (ads.length) { %>
+    <div class="listing-grid">
+      <% ads.forEach(ad => { %>
+        <a class="listing-card" href="/ad/<%= ad._id %>">
+          <div class="listing-image">
+            <% if (ad.image) { %><img src="<%= ad.image.startsWith('https://') ? ad.image : '/uploads/' + ad.image %>" alt="<%= ad.title %>" loading="lazy"><% } else { %><div class="image-placeholder"><span><%= ad.category %></span></div><% } %>
+          </div>
+          <div class="listing-copy">
+            <span class="listing-category"><%= ad.category %></span>
+            <h3><%= ad.title %></h3>
+            <p class="listing-price"><%= ad.price.toLocaleString('mn-MN') %> ₮</p>
+            <div class="listing-meta"><span><span class="icon icon--map-pin" aria-hidden="true"></span><%= ad.location || 'Байршил тодорхойгүй' %></span><span><span class="icon icon--calendar-days" aria-hidden="true"></span><%= new Date(ad.createdAt).toLocaleDateString('mn-MN') %></span></div>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="empty-state"><h3>Энэ ангилалд зар алга</h3><p>Хайлтаа өөрчлөөд дахин үзээрэй.</p></div>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>

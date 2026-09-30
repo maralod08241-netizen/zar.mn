@@ -1,0 +1,57 @@
+<%- include('partials/header') %>
+
+<nav class="breadcrumbs" aria-label="Байршил">
+  <a href="/"><span class="icon icon--house" aria-hidden="true"></span>Бүх зар</a><span>/</span><span><%= ad.category %></span>
+</nav>
+
+<article class="ad-detail">
+  <section class="ad-detail-media" aria-label="Зарын зураг">
+    <div class="ad-photo">
+      <% if (ad.image) { %>
+        <img src="<%= ad.image.startsWith('https://') ? ad.image : '/uploads/' + ad.image %>" alt="<%= ad.title %>">
+      <% } else { %>
+        <div class="image-placeholder"><span><%= ad.category %></span></div>
+      <% } %>
+      <% if (ad.vipUntil && ad.vipUntil > new Date()) { %>
+        <span class="vip-badge"><span class="icon icon--sparkles" aria-hidden="true"></span>VIP · <%= ad.vipPlanDays %> хоног</span>
+      <% } %>
+    </div>
+    <div class="ad-media-caption">
+      <span><span class="icon icon--layout-list" aria-hidden="true"></span><%= ad.category %></span>
+      <time datetime="<%= new Date(ad.createdAt).toISOString() %>"><span class="icon icon--calendar-days" aria-hidden="true"></span>Нийтэлсэн <%= new Date(ad.createdAt).toLocaleDateString('mn-MN') %></time>
+    </div>
+  </section>
+
+  <section class="ad-detail-content">
+    <p class="eyebrow">ЗАРЫН ДЭЛГЭРЭНГҮЙ</p>
+    <h1 class="ad-detail-title"><%= ad.title %></h1>
+    <p class="ad-detail-price"><%= ad.price.toLocaleString('mn-MN') %><span>₮</span></p>
+
+    <% if (ad.description) { %>
+      <div class="ad-description"><%= ad.description %></div>
+    <% } %>
+
+    <dl class="ad-facts">
+      <div><dt>Ангилал</dt><dd><%= ad.category %></dd></div>
+      <div><dt>Байршил</dt><dd><%= ad.location || 'Тодорхойгүй' %></dd></div>
+    </dl>
+
+    <section class="ad-seller" aria-label="Зарлагчийн мэдээлэл">
+      <p class="eyebrow">ЗАРЛАГЧ</p>
+      <div class="seller-row">
+        <span class="seller-avatar" aria-hidden="true"><%= ad.user.name.charAt(0).toUpperCase() %></span>
+        <div class="seller-info"><strong><%= ad.user.name %></strong><span>Зар.mn гишүүн</span></div>
+        <a class="seller-phone motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98] motion-safe:hover:shadow-sm" href="tel:<%= ad.user.phone %>"><span class="icon icon--phone" aria-hidden="true"></span>Залгах</a>
+      </div>
+    </section>
+
+    <% if (user && user.id === ad.user._id.toString()) { %>
+      <form class="ad-owner-action" method="post" action="/ad/<%= ad._id %>/delete"
+            onsubmit="return confirm('Устгах уу?')">
+        <button class="danger motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98] motion-safe:hover:shadow-sm">Зараа устгах</button>
+      </form>
+    <% } %>
+  </section>
+</article>
+
+<%- include('partials/footer') %>

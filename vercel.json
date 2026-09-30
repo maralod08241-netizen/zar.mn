@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build:ui",
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 10,
+      "includeFiles": [
+        "views/**",
+        "models/**",
+        "public/**"
+      ]
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+
+<section class="page-heading page-heading-row">
+  <div><p class="eyebrow">ГИШҮҮНИЙ БУЛАН</p><h1>Миний зар</h1><p>Нийтэлсэн заруудаа эндээс удирдана.</p></div>
+  <a class="button-link motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98] motion-safe:hover:shadow-sm" href="/post"><span class="icon icon--circle-plus" aria-hidden="true"></span>Шинэ зар</a>
+</section>
+
+<% if (ads.length) { %>
+  <div class="listing-grid">
+    <% ads.forEach(ad => { %>
+      <article class="listing-card member-listing">
+        <a href="/ad/<%= ad._id %>">
+          <div class="listing-image">
+            <% if (ad.image) { %><img src="<%= ad.image.startsWith('https://') ? ad.image : '/uploads/' + ad.image %>" alt="<%= ad.title %>" loading="lazy"><% } else { %><div class="image-placeholder"><span><%= ad.category %></span></div><% } %>
+            <% if (ad.vipUntil && ad.vipUntil > new Date()) { %><span class="vip-badge"><span class="icon icon--sparkles" aria-hidden="true"></span>VIP</span><% } %>
+          </div>
+          <div class="listing-copy">
+            <span class="listing-category"><%= ad.category %></span>
+            <h3><%= ad.title %></h3>
+            <p class="listing-price"><%= ad.price.toLocaleString('mn-MN') %> ₮</p>
+            <% if (ad.vipUntil && ad.vipUntil > new Date()) { %><p class="member-vip-status">VIP · <%= ad.vipPrice.toLocaleString('mn-MN') %> ₮ · <%= ad.vipPlanDays %> хоног</p><% } %>
+            <div class="listing-meta"><span><%= ad.location || 'Байршил тодорхойгүй' %></span><span><%= new Date(ad.createdAt).toLocaleDateString('mn-MN') %></span></div>
+          </div>
+        </a>
+        <form method="post" action="/ad/<%= ad._id %>/delete" onsubmit="return confirm('Энэ зарыг устгах уу?')">
+          <button class="delete-button motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98] motion-safe:hover:shadow-sm" type="submit"><span class="icon icon--trash-2" aria-hidden="true"></span>Зар устгах</button>
+        </form>
+      </article>
+    <% }) %>
+  </div>
+<% } else { %>
+  <div class="empty-state"><h3>Одоогоор зар оруулаагүй байна</h3><a class="button-link motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98] motion-safe:hover:shadow-sm" href="/post"><span class="icon icon--circle-plus" aria-hidden="true"></span>Эхний зараа оруулах</a></div>
+<% } %>
+
+<%- include('partials/footer') %>

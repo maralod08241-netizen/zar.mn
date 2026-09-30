@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<section class="auth-layout">
+  <div class="auth-heading">
+    <p class="eyebrow">ЗАР.МН ГИШҮҮН</p>
+    <h1>Бүртгүүлэх</h1>
+    <p>Гишүүн болоод зараа нэг дороос удирдаарай.</p>
+  </div>
+  <div class="auth-panel">
+    <% if (error) { %><p class="error auth-error" role="alert"><%= error %></p><% } %>
+    <form class="form auth-form" method="post">
+      <label for="register-name">Таны нэр<input id="register-name" name="name" autocomplete="name" placeholder="Нэр" required></label>
+      <label for="register-phone">Утасны дугаар<input id="register-phone" name="phone" type="tel" autocomplete="tel" placeholder="Утас" required></label>
+      <label for="register-password">Нууц үг<input id="register-password" type="password" name="password" autocomplete="new-password" placeholder="6-аас дээш тэмдэгт" required></label>
+      <button class="motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:scale-[1.02] motion-safe:active:scale-[0.98] motion-safe:hover:shadow-sm">Бүртгүүлэх <span class="icon icon--arrow-right" aria-hidden="true"></span></button>
+    </form>
+    <p class="auth-switch">Бүртгэлтэй юу? <a href="/login">Нэвтрэх</a></p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -4,11 +4,7 @@
   "functions": {
     "api/index.js": {
       "maxDuration": 10,
-      "includeFiles": [
-        "views/**",
-        "models/**",
-        "public/**"
-      ]
+      "includeFiles": "{views,models,public}/**"
     }
   },
   "rewrites": [

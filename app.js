@@ -55,4 +55,5 @@ function connectToDatabase() {
   return connectionPromise;
 }
 
-module.exports = { app, connectToDatabase };
+module.exports = app;
+module.exports.connectToDatabase = connectToDatabase;

@@ -1,4 +1,5 @@
-const { app, connectToDatabase } = require('./app');
+const app = require('./app');
+const connectToDatabase = app.connectToDatabase;
 
 if (require.main === module) {
   connectToDatabase()
